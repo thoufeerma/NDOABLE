@@ -48,7 +48,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 relative bg-midnight text-ivory z-20 overflow-hidden">
+    <section id="contact" className="py-20 md:py-32 relative bg-midnight text-ivory z-20 overflow-hidden">
       
       {/* Ultra-low opacity premium office background */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">

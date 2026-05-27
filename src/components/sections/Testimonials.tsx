@@ -54,7 +54,7 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-32 relative bg-midnight text-ivory z-20 overflow-hidden">
+    <section id="testimonials" className="py-20 md:py-32 relative bg-midnight text-ivory z-20 overflow-hidden">
       <div className="text-center mb-20 px-6">
         <h2 className="text-gold/80 uppercase tracking-[0.2em] text-sm font-medium mb-4">Client Success</h2>
         <h3 className="font-serif text-4xl md:text-5xl">Impact <span className="italic text-ivory/70">Stories</span></h3>

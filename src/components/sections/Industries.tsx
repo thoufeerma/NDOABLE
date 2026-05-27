@@ -17,7 +17,7 @@ const industries = [
 
 export function Industries() {
   return (
-    <section id="industries" className="pt-16 pb-8 md:py-32 relative bg-midnight text-ivory z-20 overflow-hidden">
+    <section id="industries" className="py-20 md:py-32 relative bg-midnight text-ivory z-20 overflow-hidden">
       {/* Deep Section Depth: Spotlight, Texture, Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-royal-light/20 via-midnight to-midnight opacity-90" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-midnight/30 to-midnight/80 pointer-events-none" />

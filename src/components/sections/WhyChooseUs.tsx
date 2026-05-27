@@ -17,7 +17,7 @@ export function WhyChooseUs() {
   const containerRef = useRef(null);
 
   return (
-    <section className="py-32 relative bg-ivory text-midnight z-20">
+    <section className="py-20 md:py-32 relative bg-ivory text-midnight z-20">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
         
         <div className="relative lg:sticky top-32 h-auto mb-24 lg:mb-0 pb-8 lg:pb-0 z-10">
