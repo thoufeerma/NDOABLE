@@ -227,7 +227,7 @@ export function TrainingFormats() {
   const rotateOrbital2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
 
   return (
-    <section ref={containerRef} className="py-40 relative bg-midnight text-ivory z-20 overflow-hidden perspective-1000">
+    <section id="formats" ref={containerRef} className="pt-8 pb-16 md:py-48 relative bg-midnight text-ivory z-20 overflow-hidden perspective-1000">
       
       {/* Cinematic Background Environment */}
       <div className="absolute inset-0 pointer-events-none">
@@ -253,7 +253,7 @@ export function TrainingFormats() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Central Anchor & Headers */}
-        <div className="relative text-center mb-32 flex flex-col items-center justify-center">
+        <div className="relative text-center mb-16 md:mb-32 flex flex-col items-center justify-center">
           
           {/* Orbital System */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 pointer-events-none flex items-center justify-center opacity-30">
