@@ -1,124 +1,80 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+"use client";
 
-export default function Footer() {
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+export function Footer() {
   return (
-    <footer className="bg-[#F8F9FA] text-primary pt-24 pb-12 border-t border-gray-200">
-      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
-          
-          {/* Brand Info (Spans 4 cols) */}
-          <div className="lg:col-span-4 space-y-8 pr-8">
-            <div className="relative w-48 h-14 bg-white rounded-xl p-2 shadow-sm border border-gray-100 flex items-center justify-center">
-              <Image
-                src="/logo.jpeg"
-                alt="N-DO'ABLE Logo"
-                fill
-                className="object-contain p-2"
-              />
-            </div>
-            <p className="text-primary/60 text-sm leading-relaxed font-medium">
-              Advocating Excellence in Organizational L&D. We empower organizations and professionals through transformational learning and leadership development.
+    <footer className="relative bg-midnight pt-24 pb-12 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-royal-light/10 via-transparent to-transparent opacity-50" />
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
+          <div className="max-w-sm">
+            <h3 className="font-serif text-2xl text-ivory mb-6">N-DO'ABLE</h3>
+            <p className="text-ivory/60 text-sm leading-relaxed mb-8">
+              Advocating Excellence in Organizational L&D. We transform professionals through leadership development and experiential training.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-primary/60 hover:text-accent hover:border-accent hover:shadow-sm transition-all duration-300">
-                <FaLinkedin size={18} />
-              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-primary/60 hover:text-accent hover:border-accent hover:shadow-sm transition-all duration-300">
-                <FaTwitter size={18} />
-              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-primary/60 hover:text-accent hover:border-accent hover:shadow-sm transition-all duration-300">
-                <FaFacebook size={18} />
-              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-primary/60 hover:text-accent hover:border-accent hover:shadow-sm transition-all duration-300">
-                <FaInstagram size={18} />
-              </Link>
+              {["LinkedIn", "Twitter", "Instagram"].map((social) => (
+                <a
+                  key={social}
+                  href="#"
+                  className="text-sm text-ivory/80 hover:text-gold transition-colors duration-300"
+                >
+                  {social}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links (Spans 2 cols) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-sm font-bold tracking-[0.1em] text-primary uppercase mb-6">Quick Links</h4>
-            <ul className="space-y-4">
-              {["Home", "About Us", "Services", "Programs", "Resources", "Contact"].map((item) => (
-                <li key={item}>
-                  <Link
-                    href="#"
-                    className="text-primary/60 hover:text-accent font-medium text-sm transition-colors flex items-center group"
-                  >
-                    <ArrowRight size={14} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 mr-2 transition-all" />
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services (Spans 3 cols) */}
-          <div className="lg:col-span-3">
-            <h4 className="text-sm font-bold tracking-[0.1em] text-primary uppercase mb-6">Our Services</h4>
-            <ul className="space-y-4">
-              {[
-                "Leadership Development",
-                "Soft Skills Training",
-                "Sales & Customer Service",
-                "AI & Future-Tech Readiness",
-                "Team Building",
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href="#"
-                    className="text-primary/60 hover:text-accent font-medium text-sm transition-colors flex items-center group"
-                  >
-                    <ArrowRight size={14} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 mr-2 transition-all" />
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info (Spans 3 cols) */}
-          <div className="lg:col-span-3">
-            <h4 className="text-sm font-bold tracking-[0.1em] text-primary uppercase mb-6">Contact Us</h4>
-            <ul className="space-y-5">
-              <li className="flex items-start gap-4 text-primary/60 text-sm font-medium">
-                <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center shrink-0 mt-0.5">
-                  <MapPin size={14} className="text-accent" />
-                </div>
-                <span>
-                  123 Corporate Blvd, Suite 500<br />
-                  Business District, NY 10001
-                </span>
-              </li>
-              <li className="flex items-center gap-4 text-primary/60 text-sm font-medium">
-                <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
-                  <Phone size={14} className="text-accent" />
-                </div>
-                <span>+1 (234) 567-8900</span>
-              </li>
-              <li className="flex items-center gap-4 text-primary/60 text-sm font-medium">
-                <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
-                  <Mail size={14} className="text-accent" />
-                </div>
-                <span>hello@ndoable.com</span>
-              </li>
-            </ul>
+          <div className="flex gap-16">
+            <div>
+              <h4 className="text-gold font-medium text-sm mb-6 uppercase tracking-wider">Explore</h4>
+              <ul className="space-y-4">
+                {["Programs", "Industries", "Testimonials", "About Us"].map((item) => (
+                  <li key={item}>
+                    <Link href="#" className="text-ivory/70 hover:text-ivory transition-colors text-sm">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gold font-medium text-sm mb-6 uppercase tracking-wider">Contact</h4>
+              <ul className="space-y-4">
+                <li className="text-ivory/70 text-sm">+91 9751133577</li>
+                <li className="text-ivory/70 text-sm">info@ndoableconsultancy.com</li>
+                <li className="text-ivory/70 text-sm">Coimbatore, Tamil Nadu</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-primary/40 font-medium text-sm text-center md:text-left">
-            © {new Date().getFullYear()} N-DO'ABLE – A Pinnacle Consultancy. All rights reserved.
+        <motion.div 
+          className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-12"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+        />
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-ivory/40 text-xs">
+            © {new Date().getFullYear()} N-DO'ABLE Consultancy. All rights reserved.
           </p>
-          <div className="flex gap-8 text-sm font-medium text-primary/40">
-            <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Cookie Policy</Link>
+          <div className="flex gap-6 text-xs text-ivory/40">
+            <Link href="#" className="hover:text-ivory transition-colors">Privacy Policy</Link>
+            <Link href="#" className="hover:text-ivory transition-colors">Terms of Service</Link>
           </div>
+        </div>
+
+        {/* Large Brand Watermark */}
+        <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none opacity-5">
+          <h1 className="font-serif text-[15vw] leading-none whitespace-nowrap text-white">
+            N-DO'ABLE
+          </h1>
         </div>
       </div>
     </footer>

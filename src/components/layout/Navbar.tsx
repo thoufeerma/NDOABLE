@@ -1,117 +1,115 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
   { name: "Programs", href: "#programs" },
+  { name: "Industries", href: "#industries" },
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export function Navbar() {
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("Home");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 50);
+  });
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 transition-all duration-500 pointer-events-none">
-      <header
-        className={`w-full max-w-6xl pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isScrolled
-            ? "bg-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full py-3 px-6 border border-white/60"
-            : "bg-transparent py-4 px-2 md:px-6 border-transparent"
+    <>
+      <motion.header
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+          scrolled ? "bg-midnight/95 backdrop-blur-xl border-b border-white/10 shadow-lg" : "bg-transparent pt-4"
         }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 relative z-50">
-            <div className="relative w-36 h-10 transition-transform duration-300 hover:scale-[1.02]">
-              <Image
-                src="/logo.jpeg"
-                alt="N-DO'ABLE Logo"
-                fill
-                className="object-contain object-left"
-                priority
-              />
+        <div className={`max-w-7xl mx-auto px-6 h-16 flex items-center justify-between transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}>
+          <Link href="/" className="flex items-center gap-4 group">
+            <div className="relative w-10 h-10 md:w-14 md:h-14 bg-ivory rounded-lg p-1.5 md:p-2 shadow-lg flex items-center justify-center overflow-hidden">
+              <Image src="/logo.png" alt="N-DO'ABLE" fill className="object-contain p-1" priority />
             </div>
+            <span className="font-serif text-xl md:text-2xl font-medium tracking-wide text-ivory group-hover:text-gold transition-colors duration-300 drop-shadow-md">
+              N-DO'ABLE
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-12">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`group relative text-sm font-heading font-bold tracking-wider uppercase transition-colors py-2 ${
-                  isScrolled ? "text-primary/80 hover:text-primary" : "text-white/80 hover:text-white"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+          <nav className={`hidden md:flex items-center gap-1 rounded-full p-1.5 transition-all duration-500 ${
+            scrolled ? "bg-white/5 border border-white/10" : "bg-white/5 backdrop-blur-md border border-white/5"
+          }`}>
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.name;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setActiveSection(link.name)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-ivory text-midnight shadow-sm"
+                      : "text-ivory/80 hover:text-ivory hover:bg-white/10"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
 
-          <div className="hidden md:flex items-center gap-6">
-            <Button className={`font-medium px-6 h-10 rounded-full shadow-soft transition-all hover:-translate-y-0.5 group ${
-              isScrolled 
-                ? "bg-primary text-white hover:bg-primary/90 hover:shadow-soft-xl" 
-                : "bg-white text-primary hover:bg-white/90 hover:shadow-lg"
-            }`}>
-              Get Started
-              <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Button>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className={`md:hidden relative z-50 p-2 -mr-2 ${isScrolled ? "text-primary" : "text-white"}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          <button 
+            className="md:hidden w-10 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-ivory"
+            onClick={() => setMobileMenuOpen(true)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu className="w-5 h-5" />
           </button>
         </div>
+      </motion.header>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute top-full left-0 right-0 mt-4 bg-white shadow-premium rounded-2xl px-6 py-6 flex flex-col gap-4 border border-gray-100"
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(16px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-[200] bg-midnight/95 flex flex-col items-center justify-center"
+          >
+            <button 
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-ivory"
+              onClick={() => setMobileMenuOpen(false)}
             >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="flex flex-col items-center gap-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-primary py-2"
+                  onClick={() => {
+                    setActiveSection(link.name);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`text-3xl font-serif tracking-wider transition-colors duration-300 ${
+                    activeSection === link.name ? "text-gold" : "text-ivory/80 hover:text-ivory"
+                  }`}
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="h-px bg-gray-100 w-full my-2" />
-              <Button className="w-full h-12 text-base bg-primary text-white hover:bg-primary/90 rounded-full">
-                Get Started
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
-    </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
